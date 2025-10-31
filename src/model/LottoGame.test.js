@@ -1,0 +1,40 @@
+import { LottoGame } from "./LottoGame.js";
+const lottoGame = new LottoGame();
+describe("LottoGame 클래스 기능 단위 테스트", () => {
+  test("입력한 구입 금액만큼 로또 번호 자동 생성", () => {
+    const moneyInput = "5000";
+    const count = lottoGame.calculateCount(moneyInput);
+    const lottoNumbers = lottoGame.generateLottoNumbers(count);
+    expect(lottoNumbers.length).toEqual(count);
+  });
+
+  const getLogSpy = () => {
+    const logSpy = jest.spyOn(MissionUtils.Console, "print");
+    logSpy.mockClear();
+    return logSpy;
+  };
+
+  test("당첨된 값 확인", () => {
+    const randomNum = [
+      "[8, 21, 23, 41, 42, 43]",
+      "[3, 5, 11, 16, 32, 38]",
+      "[7, 11, 16, 35, 36, 44]",
+      "[1, 8, 11, 31, 41, 42]",
+      "[13, 14, 16, 38, 42, 45]",
+      "[7, 11, 30, 40, 42, 43]",
+      "[2, 13, 22, 32, 38, 45]",
+      "[1, 3, 5, 14, 22, 45]",
+    ];
+    const winningNumber = ["1,2,3,4,5,6", "7"];
+    const expectReturnValue = [1, 0, 0, 0, 0];
+    const returnValue = lottoGame.checkWinningNumber(randomNum, winningNumber);
+    expect(returnValue).toEqual(expectReturnValue);
+  });
+  test("수익률 계산", () => {
+    const payAmount = 8000;
+    const profit = 5000;
+    const profitRate = (profit / payAmount) * 100;
+    const returnValue = lottoGame.calculateProfitRate(profit, payAmount);
+    expect(returnValue).toEqual(profitRate);
+  });
+});

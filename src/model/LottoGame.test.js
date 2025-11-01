@@ -1,18 +1,10 @@
 import { LottoGame } from "./LottoGame.js";
-const lottoGame = new LottoGame();
 describe("LottoGame 클래스 기능 단위 테스트", () => {
   test("입력한 구입 금액만큼 로또 번호 자동 생성", () => {
     const moneyInput = "5000";
-    const count = lottoGame.calculateCount(moneyInput);
-    const lottoNumbers = lottoGame.generateLottoNumbers(count);
-    expect(lottoNumbers.length).toEqual(count);
+    const lottoNumbers = LottoGame.generateLottoNumbers(moneyInput);
+    expect(lottoNumbers.length).toEqual(5);
   });
-
-  const getLogSpy = () => {
-    const logSpy = jest.spyOn(MissionUtils.Console, "print");
-    logSpy.mockClear();
-    return logSpy;
-  };
 
   test("당첨된 값 확인", () => {
     const randomNum = [

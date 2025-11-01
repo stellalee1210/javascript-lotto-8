@@ -5,43 +5,43 @@ describe("validator 구입 금액 검증 단위 테스트", () => {
   test("정상 구입 금액", () => {
     expect(() => {
       const lottoPrice = "5000";
-      Validator.validateLottoPrice(lottoPrice);
+      Validator.validatePurchaseAmount(lottoPrice);
     }).not.toThrow();
   });
   test("구입 금액이 1000원으로 나누어 떨어지지 않는 경우", () => {
     expect(() => {
       const lottoPrice = "3900";
-      Validator.validateLottoPrice(lottoPrice);
+      Validator.validatePurchaseAmount(lottoPrice);
     }).toThrow(ERROR_MESSAGES.PURCHASE_AMOUNT_DIVISION);
   });
   test("구입 금액이 숫자가 아닌 경우", () => {
     expect(() => {
       const lottoPrice = "price";
-      Validator.validateLottoPrice(lottoPrice);
+      Validator.validatePurchaseAmount(lottoPrice);
     }).toThrow(ERROR_MESSAGES.PURCHASE_AMOUNT_NAN);
   });
   test("구입 금액이 1000원 미만인 양수인 경우", () => {
     expect(() => {
       const lottoPrice = "900";
-      Validator.validateLottoPrice(lottoPrice);
+      Validator.validatePurchaseAmount(lottoPrice);
     }).toThrow(ERROR_MESSAGES.PURCHASE_AMOUNT_BELOW_1000);
   });
   test("구입 금액이 음수인 경우", () => {
     expect(() => {
       const lottoPrice = "-4000";
-      Validator.validateLottoPrice(lottoPrice);
+      Validator.validatePurchaseAmount(lottoPrice);
     }).toThrow(ERROR_MESSAGES.PURCHASE_AMOUNT_NEGATIVE);
   });
   test("구입 금액이 소수인 경우", () => {
     expect(() => {
       const lottoPrice = "1.5";
-      Validator.validateLottoPrice(lottoPrice);
+      Validator.validatePurchaseAmount(lottoPrice);
     }).toThrow(ERROR_MESSAGES.PURCHASE_AMOUNT_DECIMAL);
   });
   test("구입 금액이 10만원을 넘어가는 경우", () => {
     expect(() => {
       const lottoPrice = "105000";
-      Validator.validateLottoPrice(lottoPrice);
+      Validator.validatePurchaseAmount(lottoPrice);
     }).toThrow(ERROR_MESSAGES.PURCHASE_AMOUNT_OVER_LIMIT);
   });
 });

@@ -1,6 +1,7 @@
 import { readPurchaseAmount } from "./view/input.js";
 import { Validator } from "./utils/Validator.js";
 import { LottoGame } from "./model/LottoGame.js";
+import { printLottoNumbers } from "./view/output.js";
 
 export class LottoSimulator {
   #purchaseAmount;
@@ -10,6 +11,8 @@ export class LottoSimulator {
 
   async #startLotto() {
     await this.getPurchaseAmount();
+    const lottoTickets = LottoGame.generateLottoNumbers(this.#purchaseAmount);
+    printLottoNumbers(lottoTickets);
   }
 
   async getPurchaseAmount() {

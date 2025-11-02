@@ -30,10 +30,17 @@ describe("LottoGame 클래스 기능 단위 테스트", () => {
     expect(returnValue).toEqual(expectReturnValue);
   });
   test("수익률 계산", () => {
-    const payAmount = 8000;
+    const matchReuslt = [1, 0, 0, 0, 0];
+    const purchaseAmount = 8;
+
+    const payAmount = purchaseAmount * 1000;
     const profit = 5000;
+
     const profitRate = (profit / payAmount) * 100;
-    const returnValue = LottoGame.calculateProfitRate(profit, payAmount);
+    const returnValue = LottoGame.calculateProfitRate(
+      matchReuslt,
+      purchaseAmount
+    );
     expect(returnValue).toEqual(profitRate);
   });
 });

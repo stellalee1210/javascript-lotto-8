@@ -1,7 +1,8 @@
 import { LottoSimulator } from "./LottoSimulator.js";
 class App {
   async run() {
-    await new LottoSimulator();
+    const simulator = new LottoSimulator();
+    await simulator.startLotto();
   }
 }
 

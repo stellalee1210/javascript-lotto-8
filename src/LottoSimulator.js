@@ -5,7 +5,7 @@ import {
 } from "./view/input.js";
 import { Validator } from "./utils/Validator.js";
 import { LottoGame } from "./model/LottoGame.js";
-import { printLottoTickets } from "./view/output.js";
+import { printLottoTickets, printResult } from "./view/output.js";
 import { parser } from "./utils/parser.js";
 
 export class LottoSimulator {
@@ -29,6 +29,7 @@ export class LottoSimulator {
       this.#winningNumber,
       this.#bonusNumber
     );
+    printResult(matchResults);
   }
 
   async #getPurchaseAmount() {

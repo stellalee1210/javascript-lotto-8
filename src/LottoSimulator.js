@@ -18,7 +18,6 @@ import {
 import { Validator } from "./utils/Validator.js";
 import { LottoGame } from "./model/LottoGame.js";
 import { parser } from "./utils/parser.js";
-import { Console } from "@woowacourse/mission-utils";
 
 export class LottoSimulator {
   #purchaseAmount;
@@ -40,7 +39,6 @@ export class LottoSimulator {
       this.#winningNumber,
       this.#bonusNumber
     );
-    Console.print(matchResults);
     printResult(matchResults);
 
     const profitRate = LottoGame.calculateProfitRate(

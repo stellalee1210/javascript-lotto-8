@@ -1,6 +1,6 @@
 import { ERROR_MESSAGES } from "../constants/errorMessages.js";
 import { Validator } from "./Validator.js";
-import { parseWinningNumber } from "./parser.js";
+import { parser } from "./parser.js";
 
 describe("validator 구입 금액 검증 단위 테스트", () => {
   test("정상 구입 금액", () => {
@@ -51,21 +51,21 @@ describe("validator 당첨 번호 검증 단위 테스트", () => {
   test("당첨 번호가 6개 이상인 경우", () => {
     expect(() => {
       const winningNumber = "1, 3, 5, 6, 7, 8, 9";
-      const parsedWinnningNumber = parseWinningNumber(winningNumber);
+      const parsedWinnningNumber = parser(winningNumber);
       Validator.validateWinningNumber(parsedWinnningNumber);
     }).toThrow(ERROR_MESSAGES.WINNING_NUMBER_NOT_6_DIGITS);
   });
   test("당첨 번호가 중복인 경우", () => {
     expect(() => {
       const winningNumber = "5, 15, 25, 35, 45, 5";
-      const parsedWinnningNumber = parseWinningNumber(winningNumber);
+      const parsedWinnningNumber = parser(winningNumber);
       Validator.validateWinningNumber(parsedWinnningNumber);
     }).toThrow(ERROR_MESSAGES.WINNING_NUMBER_DUPLIATE);
   });
   test("당첨 번호가 숫자가 아닌 경우", () => {
     expect(() => {
       const winningNumber = "1, 3, F, 6, D, 9";
-      const parsedWinnningNumber = parseWinningNumber(winningNumber);
+      const parsedWinnningNumber = parser(winningNumber);
       Validator.validateWinningNumber(parsedWinnningNumber);
     }).toThrow(ERROR_MESSAGES.WINNING_NUMBER_NAN);
   });
@@ -73,14 +73,14 @@ describe("validator 당첨 번호 검증 단위 테스트", () => {
   test("1~45 사이의 숫자가 아닌 경우", () => {
     expect(() => {
       const winningNumber = "10, 20, 30, 40, 50, 26";
-      const parsedWinnningNumber = parseWinningNumber(winningNumber);
+      const parsedWinnningNumber = parser(winningNumber);
       Validator.validateWinningNumber(parsedWinnningNumber);
     }).toThrow(ERROR_MESSAGES.WINNING_NUMBER_OVER_LIMIT);
   });
   test("당첨 번호가 비어있는 경우", () => {
     expect(() => {
       const winningNumber = "";
-      const parsedWinnningNumber = parseWinningNumber(winningNumber);
+      const parsedWinnningNumber = parser(winningNumber);
       Validator.validateWinningNumber(parsedWinnningNumber);
     }).toThrow(ERROR_MESSAGES.WINNING_NUMBER_EMPTY);
   });
@@ -90,7 +90,7 @@ describe("validator 보너스 번호 검증 단위 테스트", () => {
   test("보너스 번호가 1개 이상인 경우", () => {
     expect(() => {
       const winningNumber = "1, 3, 5, 6, 8, 9";
-      const parsedWinnningNumber = parseWinningNumber(winningNumber);
+      const parsedWinnningNumber = parser(winningNumber);
       const bonusNumber = "23, 34";
       Validator.validateBonusNumber(parsedWinnningNumber, bonusNumber);
     }).toThrow(ERROR_MESSAGES.BONUS_NUMBER_NOT_1_DIGIT);
@@ -98,7 +98,7 @@ describe("validator 보너스 번호 검증 단위 테스트", () => {
   test("보너스 번호가 중복인 경우", () => {
     expect(() => {
       const winningNumber = "5, 15, 25, 35, 45, 6";
-      const parsedWinnningNumber = parseWinningNumber(winningNumber);
+      const parsedWinnningNumber = parser(winningNumber);
       const bonusNumber = "45";
       Validator.validateBonusNumber(parsedWinnningNumber, bonusNumber);
     }).toThrow(ERROR_MESSAGES.BONUS_NUMBER_DUPLICATE);
@@ -106,7 +106,7 @@ describe("validator 보너스 번호 검증 단위 테스트", () => {
   test("보너스 번호가 숫자가 아닌 경우", () => {
     expect(() => {
       const winningNumber = "1, 3, 5, 6, 8, 9";
-      const parsedWinnningNumber = parseWinningNumber(winningNumber);
+      const parsedWinnningNumber = parser(winningNumber);
       const bonusNumber = "d";
       Validator.validateBonusNumber(parsedWinnningNumber, bonusNumber);
     }).toThrow(ERROR_MESSAGES.BONUS_NUMBER_NAN);
@@ -115,7 +115,7 @@ describe("validator 보너스 번호 검증 단위 테스트", () => {
   test("1~45 사이의 숫자가 아닌 경우", () => {
     expect(() => {
       const winningNumber = "10, 20, 30, 40, 50, 26";
-      const parsedWinnningNumber = parseWinningNumber(winningNumber);
+      const parsedWinnningNumber = parser(winningNumber);
       const bonusNumber = "56";
       Validator.validateBonusNumber(parsedWinnningNumber, bonusNumber);
     }).toThrow(ERROR_MESSAGES.BONUS_NUMBER_OVER_LIMIT);
@@ -123,7 +123,7 @@ describe("validator 보너스 번호 검증 단위 테스트", () => {
   test("보너스 번호가 비어있는 경우", () => {
     expect(() => {
       const winningNumber = "10, 20, 30, 40, 50, 26";
-      const parsedWinnningNumber = parseWinningNumber(winningNumber);
+      const parsedWinnningNumber = parser(winningNumber);
       const bonusNumber = "";
       Validator.validateBonusNumber(parsedWinnningNumber, bonusNumber);
     }).toThrow(ERROR_MESSAGES.BONUS_NUMBER_EMPTY);

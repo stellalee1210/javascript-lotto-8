@@ -6,7 +6,7 @@ import {
   BONUS_NUMBER_LENGTH,
   MAX_LOTTO_NUM,
 } from "../constants/constants.js";
-import { parseWinningNumber } from "./parser.js";
+import { parser } from "./parser.js";
 
 export class Validator {
   static validatePurchaseAmount(amount) {
@@ -65,7 +65,7 @@ export class Validator {
       if (bonusNumberString.length === 0)
         throw Error(ERROR_MESSAGES.BONUS_NUMBER_EMPTY);
 
-      const bonusNumberToArray = parseWinningNumber(bonusNumberString);
+      const bonusNumberToArray = parser(bonusNumberString);
       if (bonusNumberToArray.length > BONUS_NUMBER_LENGTH)
         throw Error(ERROR_MESSAGES.BONUS_NUMBER_NOT_1_DIGIT);
 

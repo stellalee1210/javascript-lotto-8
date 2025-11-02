@@ -1,4 +1,4 @@
-export const parseWinningNumber = (winningNumbers) => {
-  if (winningNumbers.length === 0) return winningNumbers;
-  return winningNumbers.split(",").map(Number);
+export const parser = (string) => {
+  if (string.length === 0) return string;
+  return string.split(",").map(Number);
 };

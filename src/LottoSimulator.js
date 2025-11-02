@@ -6,7 +6,7 @@ import {
 import { Validator } from "./utils/Validator.js";
 import { LottoGame } from "./model/LottoGame.js";
 import { printLottoTickets } from "./view/output.js";
-import { parseWinningNumber } from "./utils/parser.js";
+import { parser } from "./utils/parser.js";
 export class LottoSimulator {
   #purchaseAmount;
   #winningNumber;
@@ -37,7 +37,7 @@ export class LottoSimulator {
   async #getWinningNumber() {
     try {
       const winningNubmerInput = await readWinningNumber();
-      const parsedWinnningNumber = parseWinningNumber(winningNubmerInput);
+      const parsedWinnningNumber = parser(winningNubmerInput);
       Validator.validateWinningNumber(parsedWinnningNumber);
       this.#winningNumber = parsedWinnningNumber;
     } catch (error) {

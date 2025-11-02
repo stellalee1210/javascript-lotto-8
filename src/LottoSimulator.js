@@ -7,33 +7,40 @@ import {
   printLottoTickets,
   printResult,
   printProfitRate,
+  printError,
 } from "./view/output.js";
+import {
+  PurchaseAmountError,
+  WinningNumberError,
+  BonusNumberError,
+} from "./Error/Errors.js";
 
 import { Validator } from "./utils/Validator.js";
 import { LottoGame } from "./model/LottoGame.js";
 import { parser } from "./utils/parser.js";
+import { Console } from "@woowacourse/mission-utils";
 
 export class LottoSimulator {
   #purchaseAmount;
   #winningNumber;
   #bonusNumber;
-  constructor() {
-    this.#startLotto();
-  }
 
-  async #startLotto() {
-    await this.#getPurchaseAmount();
+  constructor() {}
+
+  async startLotto() {
+    await this.#readPurchaseAmount();
     const lottoTickets = LottoGame.generateLottoNumbers(this.#purchaseAmount);
     printLottoTickets(lottoTickets);
 
-    await this.#getWinningNumber();
-    await this.#getBonusNumber();
+    await this.#readWinningNumber();
+    await this.#readBonusNumber();
 
     const matchResults = LottoGame.calculateWinningNumber(
       lottoTickets,
       this.#winningNumber,
       this.#bonusNumber
     );
+    Console.print(matchResults);
     printResult(matchResults);
 
     const profitRate = LottoGame.calculateProfitRate(
@@ -43,34 +50,38 @@ export class LottoSimulator {
     printProfitRate(profitRate);
   }
 
-  async #getPurchaseAmount() {
+  async #readPurchaseAmount() {
     try {
       const purchaseAmountInput = await readPurchaseAmount(); //구입 금액 입력 읽어오기
       Validator.validatePurchaseAmount(purchaseAmountInput);
       this.#purchaseAmount = purchaseAmountInput;
     } catch (error) {
-      throw Error(error);
+      printError(error.message);
+      if (error instanceof PurchaseAmountError)
+        await this.#readPurchaseAmount();
     }
   }
 
-  async #getWinningNumber() {
+  async #readWinningNumber() {
     try {
       const winningNubmerInput = await readWinningNumber();
       const parsedWinnningNumber = parser(winningNubmerInput);
       Validator.validateWinningNumber(parsedWinnningNumber);
       this.#winningNumber = parsedWinnningNumber;
     } catch (error) {
-      throw Error(error);
+      printError(error.message);
+      if (error instanceof WinningNumberError) await this.#readWinningNumber();
     }
   }
 
-  async #getBonusNumber() {
+  async #readBonusNumber() {
     try {
       const bonusNumberInput = await readBonusNumber();
       Validator.validateBonusNumber(this.#winningNumber, bonusNumberInput);
       this.#bonusNumber = Number(bonusNumberInput);
     } catch (error) {
-      throw Error(error);
+      printError(error.message);
+      if (error instanceof BonusNumberError) await this.#readBonusNumber();
     }
   }
 }

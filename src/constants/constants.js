@@ -4,3 +4,4 @@ export const MIN_LOTTO_NUM = 1;
 export const MAX_LOTTO_NUM = 45;
 export const LOTTO_NUMBER_LENGTH = 6;
 export const BONUS_NUMBER_LENGTH = 1;
+export const MIN_MATCHING_VALUE = 3;

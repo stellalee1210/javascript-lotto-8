@@ -1,7 +1,7 @@
 import { LottoGame } from "./LottoGame.js";
 describe("LottoGame 클래스 기능 단위 테스트", () => {
   test("입력한 구입 금액만큼 로또 번호 자동 생성", () => {
-    const moneyInput = "5000";
+    const moneyInput = 5000;
     const lottoNumbers = LottoGame.generateLottoNumbers(moneyInput);
     expect(lottoNumbers.length).toEqual(5);
   });

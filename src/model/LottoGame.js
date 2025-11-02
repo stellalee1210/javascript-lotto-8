@@ -2,7 +2,7 @@ import { Random } from "@woowacourse/mission-utils";
 import {
   MIN_LOTTO_NUM,
   MAX_LOTTO_NUM,
-  LOTTO_NUMBER_COUNT,
+  LOTTO_NUMBER_LENGTH,
 } from "../constants/constants.js";
 import { Lotto } from "../Lotto.js";
 
@@ -15,7 +15,7 @@ export class LottoGame {
       const randomNumArray = Random.pickUniqueNumbersInRange(
         MIN_LOTTO_NUM,
         MAX_LOTTO_NUM,
-        LOTTO_NUMBER_COUNT
+        LOTTO_NUMBER_LENGTH
       );
 
       tickets.push(new Lotto(randomNumArray));

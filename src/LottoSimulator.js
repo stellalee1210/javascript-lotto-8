@@ -1,4 +1,8 @@
-import { readPurchaseAmount, readWinningNumber } from "./view/input.js";
+import {
+  readBonusNumber,
+  readPurchaseAmount,
+  readWinningNumber,
+} from "./view/input.js";
 import { Validator } from "./utils/Validator.js";
 import { LottoGame } from "./model/LottoGame.js";
 import { printLottoTickets } from "./view/output.js";
@@ -6,6 +10,7 @@ import { parseWinningNumber } from "./utils/parser.js";
 export class LottoSimulator {
   #purchaseAmount;
   #winningNumber;
+  #bonusNumber;
   constructor() {
     this.#startLotto();
   }
@@ -16,6 +21,7 @@ export class LottoSimulator {
     printLottoTickets(lottoTickets);
 
     await this.#getWinningNumber();
+    await this.#getBonusNumber();
   }
 
   async #getPurchaseAmount() {
@@ -34,6 +40,16 @@ export class LottoSimulator {
       const parsedWinnningNumber = parseWinningNumber(winningNubmerInput);
       Validator.validateWinningNumber(parsedWinnningNumber);
       this.#winningNumber = parsedWinnningNumber;
+    } catch (error) {
+      throw Error(error);
+    }
+  }
+
+  async #getBonusNumber() {
+    try {
+      const bonusNumberInput = await readBonusNumber();
+      Validator.validateBonusNumber(this.#winningNumber, bonusNumberInput);
+      this.#bonusNumber = bonusNumberInput;
     } catch (error) {
       throw Error(error);
     }

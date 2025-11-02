@@ -2,8 +2,12 @@ import { ERROR_MESSAGES } from "../constants/errorMessages.js";
 import {
   MIN_PURCHASE_AMOUNT,
   MAX_PURCHASE_AMOUNT,
-  LOTTO_NUMBER_COUNT,
+  LOTTO_NUMBER_LENGTH,
+  BONUS_NUMBER_LENGTH,
+  MAX_LOTTO_NUM,
 } from "../constants/constants.js";
+import { parseWinningNumber } from "./parser.js";
+
 export class Validator {
   static validatePurchaseAmount(amount) {
     try {
@@ -38,7 +42,7 @@ export class Validator {
       if (numbers.length === 0)
         throw Error(ERROR_MESSAGES.WINNING_NUMBER_EMPTY);
 
-      if (numbers.length !== LOTTO_NUMBER_COUNT)
+      if (numbers.length !== LOTTO_NUMBER_LENGTH)
         throw Error(ERROR_MESSAGES.WINNING_NUMBER_NOT_6_DIGITS);
 
       const ifNaNValues = numbers.some((v) => isNaN(v));
@@ -51,6 +55,29 @@ export class Validator {
       const arrayToSet = new Set(numbers);
       if (arrayToSet.size !== numbers.length)
         throw Error(ERROR_MESSAGES.WINNING_NUMBER_DUPLIATE);
+    } catch (error) {
+      throw Error(error.message);
+    }
+  }
+
+  static validateBonusNumber(winningNumbers, bonusNumberString) {
+    try {
+      if (bonusNumberString.length === 0)
+        throw Error(ERROR_MESSAGES.BONUS_NUMBER_EMPTY);
+
+      const bonusNumberToArray = parseWinningNumber(bonusNumberString);
+      if (bonusNumberToArray.length > BONUS_NUMBER_LENGTH)
+        throw Error(ERROR_MESSAGES.BONUS_NUMBER_NOT_1_DIGIT);
+
+      const bonusNumberToNumber = Number(bonusNumberString);
+      if (winningNumbers.includes(bonusNumberToNumber))
+        throw Error(ERROR_MESSAGES.BONUS_NUMBER_DUPLICATE);
+
+      if (isNaN(bonusNumberToNumber))
+        throw Error(ERROR_MESSAGES.BONUS_NUMBER_NAN);
+
+      if (bonusNumberToNumber > MAX_LOTTO_NUM)
+        throw Error(ERROR_MESSAGES.BONUS_NUMBER_OVER_LIMIT);
     } catch (error) {
       throw Error(error.message);
     }

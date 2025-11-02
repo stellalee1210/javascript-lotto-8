@@ -31,12 +31,10 @@ describe("LottoGame 클래스 기능 단위 테스트", () => {
   });
   test("수익률 계산", () => {
     const matchReuslt = [1, 0, 0, 0, 0];
-    const purchaseAmount = 8;
-
-    const payAmount = purchaseAmount * 1000;
+    const purchaseAmount = 8000;
     const profit = 5000;
 
-    const profitRate = (profit / payAmount) * 100;
+    const profitRate = (profit / purchaseAmount) * 100;
     const returnValue = LottoGame.calculateProfitRate(
       matchReuslt,
       purchaseAmount

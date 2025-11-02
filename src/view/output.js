@@ -1,5 +1,9 @@
 import { Console } from "@woowacourse/mission-utils";
-export const printLottoNumbers = (lottoNumbers) => {
-  Console.print(`\n${lottoNumbers.length}개를 구매했습니다.`);
-  lottoNumbers.map((v) => Console.print(v));
+
+export const printLottoTickets = (lottoTickets) => {
+  Console.print(`\n${lottoTickets.length}개를 구매했습니다.`);
+  lottoTickets.forEach((ticket) => {
+    Console.print(ticket.lottoNumbers);
+  });
+  Console.print("");
 };

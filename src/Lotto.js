@@ -1,4 +1,4 @@
-class Lotto {
+export class Lotto {
   #numbers;
 
   constructor(numbers) {
@@ -13,6 +13,9 @@ class Lotto {
   }
 
   // TODO: 추가 기능 구현
+  get lottoNumbers() {
+    return this.#numbers;
+  }
 }
 
 export default Lotto;

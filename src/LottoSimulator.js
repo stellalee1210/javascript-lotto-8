@@ -30,6 +30,11 @@ export class LottoSimulator {
       this.#bonusNumber
     );
     printResult(matchResults);
+
+    const profitRate = LottoGame.calculateProfitRate(
+      matchResults,
+      this.#purchaseAmount
+    );
   }
 
   async #getPurchaseAmount() {

@@ -6,6 +6,8 @@ import {
   MIN_MATCHING_VALUE,
 } from "../constants/constants.js";
 import { Lotto } from "../Lotto.js";
+import { PRIZE_AMOUNT } from "../constants/constants.js";
+import { Console } from "@woowacourse/mission-utils";
 
 export class LottoGame {
   static generateLottoNumbers(amount) {
@@ -49,5 +51,14 @@ export class LottoGame {
     }
 
     return result;
+  }
+
+  static calculateProfitRate(matchResult, purchaseAmount) {
+    const totalExpense = purchaseAmount * 1000;
+    const resultToMoney = matchResult.map((v, i) => v * PRIZE_AMOUNT[i]);
+    const totalProfit = resultToMoney.reduce((acc, cur) => acc + cur);
+
+    const profitRate = Number(((totalProfit / totalExpense) * 100).toFixed(1));
+    return profitRate;
   }
 }

@@ -16,3 +16,7 @@ export const printResult = (result) => {
     Console.print(`${RESULT_MESSAGE[i]} - ${result[v]}개`);
   });
 };
+
+export const printProfitRate = (profitRate) => {
+  Console.print(`총 수익률은 ${profitRate}입니다.`);
+};

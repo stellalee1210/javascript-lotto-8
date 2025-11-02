@@ -5,5 +5,5 @@ export const printLottoTickets = (lottoTickets) => {
   lottoTickets.forEach((ticket) => {
     Console.print(ticket.lottoNumbers);
   });
-  Console.print("");
+  Console.print(""); // 줄바꿈 처리
 };

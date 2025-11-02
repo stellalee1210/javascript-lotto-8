@@ -89,7 +89,7 @@ describe("validator 당첨 번호 검증 단위 테스트", () => {
 describe("validator 보너스 번호 검증 단위 테스트", () => {
   test("보너스 번호가 1개 이상인 경우", () => {
     expect(() => {
-      const winningNumber = "1, 3, 5, 6, 7, 8, 9";
+      const winningNumber = "1, 3, 5, 6, 8, 9";
       const parsedWinnningNumber = parseWinningNumber(winningNumber);
       const bonusNumber = "23, 34";
       Validator.validateBonusNumber(parsedWinnningNumber, bonusNumber);
@@ -97,7 +97,7 @@ describe("validator 보너스 번호 검증 단위 테스트", () => {
   });
   test("보너스 번호가 중복인 경우", () => {
     expect(() => {
-      const winningNumber = "5, 15, 25, 35, 45, 5";
+      const winningNumber = "5, 15, 25, 35, 45, 6";
       const parsedWinnningNumber = parseWinningNumber(winningNumber);
       const bonusNumber = "45";
       Validator.validateBonusNumber(parsedWinnningNumber, bonusNumber);
@@ -105,7 +105,7 @@ describe("validator 보너스 번호 검증 단위 테스트", () => {
   });
   test("보너스 번호가 숫자가 아닌 경우", () => {
     expect(() => {
-      const winningNumber = "1, 3, F, 6, D, 8, 9";
+      const winningNumber = "1, 3, 5, 6, 8, 9";
       const parsedWinnningNumber = parseWinningNumber(winningNumber);
       const bonusNumber = "d";
       Validator.validateBonusNumber(parsedWinnningNumber, bonusNumber);

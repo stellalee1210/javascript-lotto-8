@@ -7,6 +7,7 @@ import {
 } from "../constants/constants.js";
 import { Lotto } from "../Lotto.js";
 import { PRIZE_AMOUNT } from "../constants/constants.js";
+import { Console } from "@woowacourse/mission-utils";
 
 export class LottoGame {
   static generateLottoNumbers(amount) {
@@ -31,29 +32,24 @@ export class LottoGame {
   }
 
   static calculateWinningNumber(lottoTickets, winningNumber, bonusNumber) {
-    const winningNumSet = new Set(winningNumber);
+    const winningNumberSet = new Set(winningNumber);
     let result = new Array(5).fill(0);
 
     for (const ticket of lottoTickets) {
-      const matching = ticket.lottoNumbers.filter((num) => {
-        return winningNumSet.has(num);
-      });
-      const matchingCount = matching.length;
-      if (matchingCount < MIN_MATCHING_VALUE) continue;
+      const lottoNumberArray = ticket.lottoNumbers;
+      let matchingNumberCount = lottoNumberArray.filter((v) =>
+        winningNumberSet.has(v)
+      ).length;
+      Console.print(matchingNumberCount);
+      if (matchingNumberCount < MIN_MATCHING_VALUE) continue;
 
-      let index = matchingCount - MIN_MATCHING_VALUE;
-      if (matchingCount === 6) {
-        result[5]++;
-        continue;
-      }
-      if (matchingCount === 5 && ticket.lottoNumbers.includes(bonusNumber)) {
-        result[4]++;
-        continue;
-      }
+      if (lottoNumberArray.includes(bonusNumber) || matchingNumberCount === 6)
+        matchingNumberCount += 1;
 
-      result[index]++;
+      const index = matchingNumberCount - MIN_MATCHING_VALUE;
+      result[index] += 1;
     }
-
+    Console.print(result);
     return result;
   }
 

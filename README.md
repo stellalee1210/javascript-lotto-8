@@ -1,6 +1,19 @@
+# README
+
+[미션 회고(velog)](https://velog.io/@camellia/%EC%9A%B0%EC%95%84%ED%95%9C%ED%85%8C%ED%81%AC%EC%BD%94%EC%8A%A4-8%EA%B8%B0-%ED%94%84%EB%A6%AC%EC%BD%94%EC%8A%A4-3%EC%A3%BC%EC%B0%A8-%EB%AF%B8%EC%85%98-%ED%9A%8C%EA%B3%A0)
+
+[미션 빌딩 과정](https://www.notion.so/2a049092ab7480678ff7e53e65f784a0?pvs=21)
+
+---
+
 ## 로또
 
 > 사용자가 입력한 금액 만큼의 로또 번호를 발행 한 뒤, 당첨 번호와 비교하여 사용자가 얼마의 수익률을 냈는지 출력하는 프로그램이다.
+
+```jsx
+//cloning 한 후 터미널에 입력하여 시작
+npm start
+```
 
 예시 형식
 
@@ -34,29 +47,78 @@
 총 수익률은 62.5%입니다.
 ```
 
+### 로또 진행 방식
+
+- 1000원 단위로 로또를 구매할 금액을 작성한다
+- 입력한 금액만큼의 1~45 사이의 중복되지 않는 6자리 로또 번호를 자동 생성 한다
+- 1~45 사이의 중복되지 않는 6자리 당첨 번호를 입력한다
+- 1~45 사이의 당첨 번호와 중복되지 않는 보너스 번호를 하나 입력한다
+- 입력한 당첨 번호와 보너스 번호를 자동 생성된 로또 번호와 비교하여 일치하는 갯수를 세아린 뒤, 당첨 통계와 수익률을 출력한다
+
+### 당첨 규칙
+
+- 3개 일치 : 5000원
+- 4개 일치 : 50000원
+- 5개 일치 : 1500000원
+- 5개 일치 + 보너스 번호 일치 : 30000000원
+- 6개 일치 : 2000000000원
+
+## 파일 구조
+
+```jsx
+./SRC
+│   App.js
+│   index.js
+│   Lotto.js
+│   LottoSimulator.js
+│
+├───constants
+│       constants.js
+│       errorMessages.js
+│       messages.js
+│
+├───Error
+│       Errors.js
+│       LottoError.js
+│
+├───model
+│       LottoGame.js
+│       LottoGame.test.js
+│
+├───utils
+│       parser.js
+│       parser.test.js
+│       Validator.js
+│       Validator.test.js
+│
+└───view
+        input.js
+        output.js
+```
+
 ## 구현 기능 목록
 
 ### 1. Controller
 
-- [ ] LottoSimulator : 로또를 구매하는 모든 과정을 관리합니다.
+- [x] LottoSimulator : 로또를 구매하는 모든 과정을 관리합니다.
 
 ### 2. View
 
-- [ ] Input : 사용자로부터 입력을 받는 함수들입니다.
+- [x] Input : 사용자로부터 입력을 받는 함수들입니다.
   - 1000원 단위로 로또 구입 금액을 입력 받습니다.
   - 1부터 45 사이의 중복되지 않은 6개의 당첨 번호를 입력 받습니다.
   - 1부터 45 사이의 당첨 번호와 중복되지 않은 1개의 보너스 번호를 입력 받습니다.
-- [ ] Output : 사용자에게 결과를 출력하는 함수들입니다.
+- [x] Output : 사용자에게 결과를 출력하는 함수들입니다.
   - 구입한 금액만큼 자동 생성된 로또 번호를 출력합니다.
   - 당첨된 로또의 갯수를 출력합니다
   - 수익률을 출력합니다.
 
 ### 3. Model
 
-- [ ] Lotto: 6자리 수의 로또를 저장합니다.
+- [x] Lotto: 6자리 수의 로또를 저장합니다.
   - 생성된 번호를 받아 6개가 맞는지 확인하고 저장합니다.
   - 번호를 return 합니다.
-- [ ] Lottery : 로또에 필요한 연산들을 관리합니다
+- [x] LottoGame : 로또에 필요한 연산들을 관리합니다
   - 구입 금액에 따른 횟수를 계산합니다.
   - 구입 금액 만큼의 로또 번호를 자동 생성합니다.
   - 당첨 번호와 생성된 번호를 비교하여 당첨 개수를 계산합니다
@@ -68,38 +130,48 @@
   - 구입 금액이 숫자인지, 1000원 단위로 떨어지는지, 1000원 이상인지 확인합니다.
   - 당첨 번호가 1부터 45 사이의 숫자인지, 6개인지, 중복인지 확인합니다.
   - 보너스 번호가 1부터 45 사이의 숫자인지, 1개인지, 당첨 번호와 중복되지는 않는지 확인합니다.
-- [ ] Parser : 입력 받은 당첨 번호를 `,` 기준으로 분리합니다.
+- [x] Parser : 입력 받은 당첨 번호를 `,` 기준으로 분리합니다.
 
 ### 5. Errors
 
 1. 구입 금액 에러
 
-- [ ] `PURCHASE_AMOUNT_NOT_NUMBER` : 구입 금액이 숫자가 아닌 문자
-- [ ] `PURCHASE_AMOUNT_BELOW_1000` : 구입 금액이 1000원 이하인 양수
-- [ ] `PURCHASE_AMOUNT_NEGATIVE` : 구입 금액이 음수
-- [ ] `PURCHASE_AMOUNT_DECIMAL` : 구입 금액이 소수
-- [ ] `PURCHASE_AMOUNT_DIVISION` : 구입 금액이 1000원으로 떨어지지 않는 경우
-- [ ] `PURCHASE_AMOUNT_OVER_LIMIT` : 구입 금액이 10만원이 넘어가는 경우
+- [x] `PURCHASE_AMOUNT_NAN` : 구입 금액이 숫자가 아닌 문자
+- [x] `PURCHASE_AMOUNT_BELOW_1000` : 구입 금액이 1000원 이하인 양수
+- [x] `PURCHASE_AMOUNT_NEGATIVE` : 구입 금액이 음수
+- [x] `PURCHASE_AMOUNT_DECIMAL` : 구입 금액이 소수
+- [x] `PURCHASE_AMOUNT_DIVISION` : 구입 금액이 1000원으로 떨어지지 않는 경우
+- [x] `PURCHASE_AMOUNT_OVER_LIMIT` : 구입 금액이 10만원이 넘어가는 경우
 
 1. 당첨 번호 에러
 
-- [ ] `WINNING_NUMBER_DUPLICATE` : 당첨 번호 중복
-- [ ] `WINNING_NUMBER_NOT_6_DIGITS` : 당첨 번호가 6개가 아닌 경우
-- [ ] `WINNING_NUMBER_NAN` : 당첨 번호가 숫자가 아닌 경우
+- [x] `WINNING_NUMBER_DUPLICATE` : 당첨 번호 중복
+- [x] `WINNING_NUMBER_NOT_6_DIGITS` : 당첨 번호가 6개가 아닌 경우
+- [x] `WINNING_NUMBER_NAN` : 당첨 번호가 숫자가 아닌 경우
+- [x] `WINNING_NUMBER_OVER_LIMIT` : 당첨 번호가 1 ~ 45 사이의 숫자가 아닌 경우
+- [x] `WINNING_NUMBER_EMPTY` : 당첨 금액이 비어있는 경우
 
 1. 보너스 번호 에러
 
-- [ ] `BONUS_NUMBER_DUPLICATE` : 보너스 번호가 당첨 번호와 중복
-- [ ] `BONUS_NUMBER_NOT_1_DIGIT` : 보너스 번호가 1개가 아닌 경우
-- [ ] `BONUS_NUMBER_NAN` : 보너스 번호가 숫자가 아닌 경우
+- [x] `BONUS_NUMBER_DUPLICATE` : 보너스 번호가 당첨 번호와 중복
+- [x] `BONUS_NUMBER_NOT_1_DIGIT` : 보너스 번호가 1개가 아닌 경우
+- [x] `BONUS_NUMBER_NAN` : 보너스 번호가 숫자가 아닌 경우
+- [x] `BONUS_NUMBER_OVER_LIMIT` : 보너스 번호가 1 ~ 45 사이의 숫자가 아닌 경우
+- [x] `BONUS_NUMBER_EMPTY` : 보너스 번호가 비어있는 경우
 
-### 7. Tests
+### 6. Tests
+
+```jsx
+//모든 테스트 실행
+npm test
+
+//단위 테스트만 별도로 시행하는 명령어
+npm test [파일명]
+```
 
 **단위 테스트**
 
 1. LottoGame 클래스
-   - 입력한 금액만큼 로또 자동 생성
-   - 맞지 않는 입력 값일 경우에 에러 반환
    - generateLottoNumbers() : 1~ 45 사이의 중복되지 않은 숫자 6개를 담은 배열 리턴
    - checkWinningNumber(): 당첨 번호와 자동 생성 번호를 비교하여 길이 5의 당첨된 갯수를 담은 배열을 리턴
    - calculateProfitRate(총수익, 총비용): 수익률을 계산한 후 리턴
@@ -107,16 +179,22 @@
    - 구입 금액 입력 값
      - 1000원으로 나누어 떨어지는 정상 값일 시 아무 일도 일어나지 않음
      - 문자일 때 에러 반환
-     - 1000원으로 떨어지지 않을 시 에러 반환
-     - 1000원 미만인 양수일 시 에러 반환
+     - 소수일 시 에러 반환
      - 음수일 시 에러 반환
+     - 1000원 미만인 양수일 시 에러 반환
+     - 1000원으로 떨어지지 않을 시 에러 반환
+     - 10만원 이상일 시 에러 반환
    - 당첨 번호
      - 6자리 아닐 시 에러 반환
      - 1~45사이의 숫자가 아닐 시 에러 반환
      - 중복일 시 에러 반환
+     - 당첨 번호가 숫자가 아닌 경우 에러 반환
+     - 당첨 번호 입력 되지 않은 경우 에러 반환
    - 보너스 번호
-     - 6자리 아닐 시 에러 반환
+     - 1 자리 아닐 시 에러 반환
      - 1~45사이의 숫자가 아닐 시 에러 반환
      - 중복일 시 에러 반환
+     - 보너스 번호가 숫자가 아닌 경우 에러 반환
+     - 보너스 번호 입력 되지 않은 경우 에러 반환
 3. Parser
    - 입력한 당첨 번호 문자열을 길이가 6인 배열로 반환

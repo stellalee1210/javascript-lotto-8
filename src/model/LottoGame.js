@@ -19,8 +19,9 @@ export class LottoGame {
         MAX_LOTTO_NUM,
         LOTTO_NUMBER_LENGTH
       );
+      const sortedRandomArray = randomNumArray.sort((a, b) => a - b);
 
-      tickets.push(new Lotto(randomNumArray));
+      tickets.push(new Lotto(sortedRandomArray));
     }
     return tickets;
   }
